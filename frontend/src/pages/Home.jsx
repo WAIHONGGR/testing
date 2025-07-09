@@ -51,6 +51,8 @@ const Home = () => {
         <div className="hero-container">
           <div className="hero-content">
             <h1>Transform Your Future with Online Learning</h1>
+            <h1>Transform Your Future with Online Learning</h1>
+
             <p>Access world-class education from anywhere. Learn from industry experts and advance your career with our comprehensive online courses.</p>
             <div className="hero-buttons">
               <button className="btn-primary">Get Started</button>
