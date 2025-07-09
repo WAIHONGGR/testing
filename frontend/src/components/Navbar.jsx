@@ -8,6 +8,7 @@ const Navbar = () => {
         <Link to="/" className="nav-logo">
           <img src={tarumtLogo} alt="tarumt logo" className="nav-logo-img" />
           <h2>Tarumt LMS</h2>
+          <h2>Tarumt LMS</h2>
         </Link>
         <div className="nav-menu">
           <Link to="/" className="nav-link">Home</Link>
