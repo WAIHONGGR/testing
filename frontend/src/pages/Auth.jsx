@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
+import { useAuth } from '../context/AuthContext'
 import AuthLayout from '../components/AuthLayout'
 
 const Auth = () => {
@@ -7,6 +8,7 @@ const Auth = () => {
   const [role, setRole] = useState('student')
   const navigate = useNavigate()
   const location = useLocation()
+  const { loginWithGoogle } = useAuth()
 
   useEffect(() => {
     const params = new URLSearchParams(location.search)
@@ -50,21 +52,24 @@ const Auth = () => {
             {/* Role comes from navbar dropdown; selector removed as requested */}
             <button type="submit" className="auth-submit">Login</button>
             <div className="auth-divider"><span>or</span></div>
-            <button type="button" className="google-btn">
+            <button
+              type="button"
+              className="google-btn"
+              onClick={async () => { await loginWithGoogle(role); navigate('/') }}
+            >
               <span className="g-icon">G</span>
               Login with Google
             </button>
-            <div className="portal-links">
-              <span>Admin?</span>
-              <button type="button" className="link-btn" onClick={() => navigate('/admin-login')}>Go to Admin Portal</button>
-              <span>•</span>
-              <button type="button" className="link-btn" onClick={() => navigate('/superadmin-login')}>Go to Super Admin</button>
-            </div>
+            {/* Admin/Super Admin access removed from public login screen for security */}
           </form>
         ) : (
           <div className="auth-form">
             <div className="auth-divider" style={{marginTop: '8px'}}><span>Sign up with</span></div>
-            <button type="button" className="google-btn" onClick={handleSignup}>
+            <button
+              type="button"
+              className="google-btn"
+              onClick={async () => { await loginWithGoogle(role); navigate('/') }}
+            >
               <span className="g-icon">G</span>
               Continue with Google
             </button>

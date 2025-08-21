@@ -10,7 +10,7 @@ const AuthLayout = ({ children, title = 'Get Started Now' }) => {
             <br />
             Start your journey now
             <br />
-            with our management system!
+            with TARUMT Learning Management System!
           </h1>
         </div>
       </div>

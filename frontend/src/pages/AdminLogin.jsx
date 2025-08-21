@@ -1,12 +1,19 @@
 import { useNavigate } from 'react-router-dom'
+import { useAuth } from '../context/AuthContext'
 import AuthLayout from '../components/AuthLayout'
 
 const AdminLogin = () => {
   const navigate = useNavigate()
+  const { loginWithGoogle } = useAuth()
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault()
-    navigate('/')
+    try {
+      await loginWithGoogle('admin')
+      navigate('/admin-dashboard')
+    } catch (error) {
+      console.error('Login failed:', error)
+    }
   }
 
   return (
