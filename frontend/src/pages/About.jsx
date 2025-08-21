@@ -19,7 +19,7 @@ const About = () => {
               <p>To provide quality education and innovative learning experiences that prepare students for success in a rapidly evolving global landscape.</p>
             </div>
 
-            <div className="mv-card animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+            <div className="mv-card animate-fade-in-up" style={{ animationDelay: '0.9s' }}>
               <h2>Our Vision</h2>
               <p>To be a leading institution in technology and management education, recognized for excellence in teaching, research, and industry collaboration.</p>
             </div>
