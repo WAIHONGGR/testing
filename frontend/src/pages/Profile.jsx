@@ -71,7 +71,7 @@ const Profile = () => {
     } else if (user?.role === 'instructor') {
       return [
         { id: 'overview', label: 'Overview', icon: '👤' },
-        { id: 'submit-requirements', label: 'Submit Requirements', icon: '📝' },
+        { id: 'submit-requirements', label: 'Profile Verfication', icon: '📝' },
         { id: 'security', label: 'Security', icon: '🔒' },
         { id: 'settings', label: 'Settings', icon: '⚙️' }
       ]

@@ -132,8 +132,8 @@ const InstructorRequirements = () => {
         {/* Submit Button */}
         <div className="requirement-submit">
           <button className="btn-primary" disabled={!signature || !documentUploaded}>
-            Submit Requirements
-          </button>
+            Submit 
+          </button> 
         </div>
       </div>
     </div>

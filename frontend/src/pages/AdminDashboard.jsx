@@ -1,10 +1,7 @@
 import { useState } from 'react'
 import { useAuth } from '../context/AuthContext'
 import AdminNavbar from '../components/AdminNavbar'
-import AdminDashboardHome from '../components/admin/AdminDashboardHome'
-import AdminApproveInstructor from '../components/admin/AdminApproveInstructor'
-import AdminInstructorCRUD from '../components/admin/AdminInstructorCRUD'
-import AdminProfile from '../components/admin/AdminProfile'
+import { AdminDashboardHome, AdminApproveInstructor, AdminInstructorCRUD, AdminProfile } from '../components/admin'
 
 const AdminDashboard = () => {
   const { user } = useAuth()
@@ -13,19 +10,23 @@ const AdminDashboard = () => {
   const renderTabContent = () => {
     switch (activeTab) {
       case 'dashboard':
-        return <AdminDashboardHome user={user} />
-
+        return (
+          <AdminDashboardHome />
+        )
       case 'approve-instructor':
-        return <AdminApproveInstructor />
-
+        return (
+          <AdminApproveInstructor />
+        )
       case 'instructor-crud':
-        return <AdminInstructorCRUD />
-
+        return (
+          <AdminInstructorCRUD />
+        )
       case 'profile':
-        return <AdminProfile />
-
+        return (
+          <AdminProfile />
+        )
       default:
-        return <AdminDashboardHome user={user} />
+        return null
     }
   }
 
