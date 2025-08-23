@@ -34,12 +34,28 @@ export const AuthProvider = ({ children }) => {
       registeredDate: new Date().toISOString().slice(0,10),
     }
     setUser(mockUser)
+    
+    // Return the user object for navigation purposes
+    return mockUser
+  }
+
+  const getDashboardPath = (role) => {
+    switch (role) {
+      case 'admin':
+        return '/admin-dashboard'
+      case 'instructor':
+        return '/instructor-dashboard'
+      case 'superadmin':
+        return '/superadmin-dashboard'
+      default:
+        return '/' // For students - go to home page
+    }
   }
 
   const updateUser = (partial) => setUser((prev) => ({ ...(prev || {}), ...(partial || {}) }))
   const logout = () => setUser(null)
 
-  const value = useMemo(() => ({ user, loginWithGoogle, logout, updateUser }), [user])
+  const value = useMemo(() => ({ user, loginWithGoogle, logout, updateUser, getDashboardPath }), [user])
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }

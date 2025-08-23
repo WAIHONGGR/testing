@@ -17,11 +17,12 @@ import StudentCourses from './pages/StudentCourses'
 import StudentHistory from './pages/StudentHistory'
 import AdminDashboard from './pages/AdminDashboard'
 import SuperAdminDashboard from './pages/SuperAdminDashboard'
+import InstructorDashboard from './pages/InstructorDashboard'
 import { useLocation } from 'react-router-dom'
 
 function App() {
   const location = useLocation()
-  const hideChrome = ['/auth', '/admin-login', '/superadmin-login', '/login/student', '/login/instructor', '/admin-dashboard', '/superadmin-dashboard'].includes(location.pathname)
+  const hideChrome = ['/auth', '/admin-login', '/superadmin-login', '/login/student', '/login/instructor', '/admin-dashboard', '/superadmin-dashboard', '/instructor-dashboard'].includes(location.pathname)
   return (
     <div className="app">
       {!hideChrome && <Navbar />}
@@ -37,6 +38,7 @@ function App() {
         <Route path="/superadmin-dashboard" element={<SuperAdminDashboard />} />
         <Route path="/login/student" element={<StudentLogin />} />
         <Route path="/login/instructor" element={<InstructorLogin />} />
+        <Route path="/instructor-dashboard" element={<InstructorDashboard />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/my-courses" element={<StudentCourses />} />
         <Route path="/my-history" element={<StudentHistory />} />

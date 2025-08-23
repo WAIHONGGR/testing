@@ -10,6 +10,19 @@ const Navbar = () => {
   const [openIntent, setOpenIntent] = useState(null) // null | 'login' | 'signup'
   const ddRef = useRef(null)
 
+  // Redirect instructors to their dashboard if they're logged in
+  useEffect(() => {
+    if (user?.role === 'instructor') {
+      navigate('/instructor-dashboard')
+      return // Exit early to prevent rendering
+    }
+  }, [user, navigate])
+
+  // Don't render navbar for logged-in instructors
+  if (user?.role === 'instructor') {
+    return null
+  }
+
   useEffect(() => {
     const handler = (e) => {
       if (ddRef.current && !ddRef.current.contains(e.target)) setOpenIntent(null)
@@ -69,7 +82,15 @@ const Navbar = () => {
                 <div className="menu-divider" />
                 <div className="menu-section">
                   <button onClick={() => { setOpenIntent(null); navigate('/profile') }}>My Profile</button>
-                  <button onClick={() => { setOpenIntent(null); logout(); navigate('/') }}>Log Out</button>
+                  <button onClick={() => { 
+                    setOpenIntent(null); 
+                    logout(); 
+                    if (user?.role === 'instructor') {
+                      navigate('/login/instructor')
+                    } else {
+                      navigate('/')
+                    }
+                  }}>Log Out</button>
                 </div>
               </div>
             </div>

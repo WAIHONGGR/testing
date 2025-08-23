@@ -8,7 +8,7 @@ const Auth = () => {
   const [role, setRole] = useState('student')
   const navigate = useNavigate()
   const location = useLocation()
-  const { loginWithGoogle } = useAuth()
+  const { loginWithGoogle, getDashboardPath } = useAuth()
 
   useEffect(() => {
     const params = new URLSearchParams(location.search)
@@ -21,14 +21,29 @@ const Auth = () => {
   const handleLogin = (e) => {
     e.preventDefault()
     if (role === 'student' || role === 'instructor') {
-      // Placeholder: navigate based on role (customize later)
-      navigate('/')
+      // Navigate based on role
+      const dashboardPath = getDashboardPath(role)
+      navigate(dashboardPath)
     }
   }
 
   const handleSignup = (e) => {
     e.preventDefault()
-    navigate('/')
+    // Navigate based on role after signup
+    const dashboardPath = getDashboardPath(role)
+    navigate(dashboardPath)
+  }
+
+  const handleGoogleAuth = async () => {
+    try {
+      const user = await loginWithGoogle(role)
+      const dashboardPath = getDashboardPath(user.role)
+      navigate(dashboardPath)
+    } catch (error) {
+      console.error('Google auth error:', error)
+      // Fallback to home page if there's an error
+      navigate('/')
+    }
   }
 
   return (
@@ -55,7 +70,7 @@ const Auth = () => {
             <button
               type="button"
               className="google-btn"
-              onClick={async () => { await loginWithGoogle(role); navigate('/') }}
+              onClick={handleGoogleAuth}
             >
               <span className="g-icon">G</span>
               Login with Google
@@ -68,7 +83,7 @@ const Auth = () => {
             <button
               type="button"
               className="google-btn"
-              onClick={async () => { await loginWithGoogle(role); navigate('/') }}
+              onClick={handleGoogleAuth}
             >
               <span className="g-icon">G</span>
               Continue with Google

@@ -8,6 +8,7 @@ const AdminProfile = () => {
   const [formData, setFormData] = useState({
     name: user?.name || '',
     email: user?.email || '',
+    phone: '+1-234-567-8900',
     systemAccessLevel: 'full',
     emailNotifications: true,
     systemAlerts: true,
@@ -37,6 +38,7 @@ const AdminProfile = () => {
     setFormData({
       name: user?.name || '',
       email: user?.email || '',
+      phone: '+1-234-567-8900',
       systemAccessLevel: 'full',
       emailNotifications: true,
       systemAlerts: true,
@@ -83,6 +85,21 @@ const AdminProfile = () => {
               <div className="profile-field">
                 <label>Role</label>
                 <input type="text" value="Administrator" readOnly />
+              </div>
+              
+              <div className="profile-field">
+                <label>Phone Number</label>
+                {isEditing ? (
+                  <input
+                    type="tel"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                    placeholder="+1-234-567-8900"
+                  />
+                ) : (
+                  <input type="text" value={formData.phone} readOnly />
+                )}
               </div>
               
               <div className="profile-field">

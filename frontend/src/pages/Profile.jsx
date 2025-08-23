@@ -1,26 +1,28 @@
 import { useAuth } from '../context/AuthContext'
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import {
-  StudentProfileHome,
+  StudentProfile,
   StudentCoursesHistory,
   StudentAIAssistant,
   StudentSecurity,
-  StudentSettings,
-  InstructorProfileHome,
-  InstructorRequirements,
-  InstructorSecurity,
-  InstructorSettings
+  StudentSettings
 } from '../components/profile'
 
 const Profile = () => {
   const { user, logout } = useAuth()
+  const navigate = useNavigate()
   const [activeTab, setActiveTab] = useState('overview')
+
+  // Redirect instructors to their dashboard
+  useEffect(() => {
+    if (user?.role === 'instructor') {
+      navigate('/instructor-dashboard')
+    }
+  }, [user, navigate])
 
   // Reset active tab if student has submit-requirements tab active
   useEffect(() => {
-    if (user?.role !== 'instructor' && activeTab === 'submit-requirements') {
-      setActiveTab('overview')
-    }
     if (user?.role !== 'student' && activeTab === 'my-courses-history') {
       setActiveTab('overview')
     }
@@ -30,7 +32,7 @@ const Profile = () => {
     if (user?.role === 'student') {
       switch (activeTab) {
         case 'overview':
-          return <StudentProfileHome user={user} />
+          return <StudentProfile user={user} />
         case 'my-courses-history':
           return <StudentCoursesHistory />
         case 'ai-assistant':
@@ -40,22 +42,10 @@ const Profile = () => {
         case 'settings':
           return <StudentSettings />
         default:
-          return <StudentProfileHome user={user} />
+          return <StudentProfile user={user} />
       }
-    } else if (user?.role === 'instructor') {
-      switch (activeTab) {
-        case 'overview':
-          return <InstructorProfileHome user={user} />
-        case 'submit-requirements':
-          return <InstructorRequirements />
-        case 'security':
-          return <InstructorSecurity />
-        case 'settings':
-          return <InstructorSettings />
-        default:
-          return <InstructorProfileHome user={user} />
-      }
-    }
+    } 
+
     return null
   }
 
@@ -65,13 +55,6 @@ const Profile = () => {
         { id: 'overview', label: 'Overview', icon: '👤' },
         { id: 'my-courses-history', label: 'My Course And History', icon: '📚' },
         { id: 'ai-assistant', label: 'AI Assistant', icon: '🤖' },
-        { id: 'security', label: 'Security', icon: '🔒' },
-        { id: 'settings', label: 'Settings', icon: '⚙️' }
-      ]
-    } else if (user?.role === 'instructor') {
-      return [
-        { id: 'overview', label: 'Overview', icon: '👤' },
-        { id: 'submit-requirements', label: 'Profile Verfication', icon: '📝' },
         { id: 'security', label: 'Security', icon: '🔒' },
         { id: 'settings', label: 'Settings', icon: '⚙️' }
       ]

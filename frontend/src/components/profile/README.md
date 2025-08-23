@@ -1,6 +1,6 @@
 # Profile Components
 
-This directory contains all the profile-related components for the TARUMT Learning Management System, organized by user role for better maintainability.
+This directory contains all the profile-related components for the TARUMT Learning Management System, specifically for student profiles.
 
 ## Component Structure
 
@@ -26,28 +26,6 @@ This directory contains all the profile-related components for the TARUMT Learni
 - **Features**: Notification preferences, language selection, course reminders
 - **Location**: Profile page → "Settings" tab (for students)
 
-### Instructor Profile Components
-
-#### InstructorProfileHome
-- **Purpose**: Main overview section for instructor profiles
-- **Features**: Account information display with edit functionality, department and qualification info
-- **Location**: Profile page → "Overview" tab (for instructors)
-
-#### InstructorRequirements
-- **Purpose**: Digital signature and document submission for instructor verification
-- **Features**: Canvas-based signature drawing, file upload for certificates
-- **Location**: Profile page → "Submit Requirements" tab (for instructors only)
-
-#### InstructorSecurity
-- **Purpose**: Security settings for instructor accounts
-- **Features**: Password change modal, two-factor authentication, login notifications
-- **Location**: Profile page → "Security" tab (for instructors)
-
-#### InstructorSettings
-- **Purpose**: General settings for instructor accounts
-- **Features**: Student progress alerts, course announcements, timezone settings
-- **Location**: Profile page → "Settings" tab (for instructors)
-
 ## File Structure
 
 ```
@@ -56,10 +34,6 @@ frontend/src/components/profile/
 ├── StudentCoursesHistory.jsx   # Student courses/history navigation
 ├── StudentSecurity.jsx         # Student security settings
 ├── StudentSettings.jsx         # Student general settings
-├── InstructorProfileHome.jsx   # Instructor overview
-├── InstructorRequirements.jsx  # Instructor verification requirements
-├── InstructorSecurity.jsx      # Instructor security settings
-├── InstructorSettings.jsx      # Instructor general settings
 ├── index.js                    # Export file
 └── README.md                   # This file
 ```
@@ -73,17 +47,13 @@ import {
   StudentProfileHome,
   StudentCoursesHistory,
   StudentSecurity,
-  StudentSettings,
-  InstructorProfileHome,
-  InstructorRequirements,
-  InstructorSecurity,
-  InstructorSettings
+  StudentSettings
 } from '../components/profile'
 ```
 
 ### Using in Profile Page
 
-The main `Profile.jsx` page now uses these components based on user role:
+The main `Profile.jsx` page now uses these components for student users:
 
 ```jsx
 const renderTabContent = () => {
@@ -100,19 +70,6 @@ const renderTabContent = () => {
       default:
         return <StudentProfileHome user={user} />
     }
-  } else if (user?.role === 'instructor') {
-    switch (activeTab) {
-      case 'overview':
-        return <InstructorProfileHome user={user} />
-      case 'submit-requirements':
-        return <InstructorRequirements />
-      case 'security':
-        return <InstructorSecurity />
-      case 'settings':
-        return <InstructorSettings />
-      default:
-        return <InstructorProfileHome user={user} />
-    }
   }
   return null
 }
@@ -123,7 +80,7 @@ const renderTabContent = () => {
 1. **Modularity**: Each component has a single responsibility
 2. **Maintainability**: Easy to update specific functionality without affecting others
 3. **Reusability**: Components can be reused in other parts of the application
-4. **Role-based Logic**: Clear separation between student and instructor functionality
+4. **Student-focused**: Clean, focused functionality for student users only
 5. **Cleaner Code**: Main Profile.jsx is now much more readable and focused
 6. **Easier Testing**: Individual components can be tested in isolation
 7. **Better Organization**: Related functionality is grouped together
@@ -137,16 +94,13 @@ The CSS includes:
 - Profile layout and sidebar styling
 - Form field styles
 - Modal and overlay styles
-- Signature canvas styling
 - Responsive design adjustments
 - Toggle switches and form controls
 
 ## Key Features
 
-- **Conditional Rendering**: Components are only rendered for appropriate user roles
+- **Student-focused**: Components are designed specifically for student needs
 - **State Management**: Each component manages its own local state
 - **Form Handling**: Proper form validation and submission handling
 - **Modal Support**: Password change modals with proper accessibility
-- **File Upload**: Document upload functionality for instructor requirements
-- **Digital Signature**: Canvas-based signature drawing for instructors
 - **Responsive Design**: Mobile-friendly layouts and interactions
